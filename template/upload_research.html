@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Upload Research{% endblock title %}
+{% block body %}
+<div class="container mt-4">
+    <h1>Upload Research Paper</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Research Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-control" id="category" name="category" required>
+                <option value="HYD">Hydrogen</option>
+                <option value="SOL">Solar</option>
+                <option value="NUC">Nuclear</option>
+                <option value="OTH">Other</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="efficiency" class="form-label">Efficiency Percentage</label>
+            <input type="number" step="0.01" class="form-control" id="efficiency" name="efficiency" required>
+        </div>
+        <div class="mb-3">
+            <label for="abstract" class="form-label">Abstract</label>
+            <textarea class="form-control" id="abstract" name="abstract" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="methodology" class="form-label">Methodology</label>
+            <textarea class="form-control" id="methodology" name="methodology" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="results" class="form-label">Results</label>
+            <textarea class="form-control" id="results" name="results" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="research_paper" class="form-label">Upload Paper (PDF)</label>
+            <input type="file" class="form-control" id="research_paper" name="research_paper" accept=".pdf" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload Research</button>
+    </form>
+</div>
+{% endblock body %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Research List{% endblock title %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="mb-4">Research Papers</h2>
+    
+    <!-- Sorting Options -->
+    <div class="mb-4">
+        <form method="get" class="form-inline">
+            <label class="mr-2">Sort by:</label>
+            <select name="sort" class="form-control form-control-sm" onchange="this.form.submit()">
+                <option value="date" {% if request.GET.sort == 'date' %}selected{% endif %}>Date</option>
+                <option value="efficiency" {% if request.GET.sort == 'efficiency' %}selected{% endif %}>Efficiency</option>
+            </select>
+        </form>
+    </div>
+
+    <!-- Research Papers List -->
+    <div class="row">
+        {% for research in researches %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ research.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        By {{ research.researcher.user.get_full_name }}
+                    </h6>
+                    <p class="card-text">
+                        <strong>Category:</strong> {{ research.get_category_display }}<br>
+                        <strong>Efficiency:</strong> {{ research.efficiency_percentage }}%<br>
+                        <strong>Published:</strong> {{ research.publication_date|date:"F d, Y" }}
+                    </p>
+                    <p class="card-text">{{ research.abstract|truncatewords:50 }}</p>
+                    <a href="{% url 'research_detail' research.id %}" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                No research papers found.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}

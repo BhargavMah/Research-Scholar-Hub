@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ research.title }}{% endblock title %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2>{{ research.title }}</h2>
+        </div>
+        <div class="card-body">
+            <div class="mb-4">
+                <h5>Author</h5>
+                <p>{{ research.researcher.user.get_full_name }}</p>
+            </div>
+            
+            <div class="mb-4">
+                <h5>Abstract</h5>
+                <p>{{ research.abstract }}</p>
+            </div>
+
+            <div class="mb-4">
+                <h5>Methodology</h5>
+                <p>{{ research.methodology }}</p>
+            </div>
+
+            <div class="mb-4">
+                <h5>Results</h5>
+                <p>{{ research.results }}</p>
+            </div>
+
+            <div class="mb-4">
+                <h5>Research Paper</h5>
+                <a href="{{ research.research_paper.url }}" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-file-pdf"></i> View Research Paper
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

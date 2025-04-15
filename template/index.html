@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+<div class="container mt-4">
+    <div class="jumbotron">
+        <h1>Welcome to Research Scholar Hub</h1>
+        <p>Discover groundbreaking research in renewable energy and sustainable technologies</p>
+    </div>
+    
+    <div class="row mt-4">
+        <h2>Latest Research Papers</h2>
+        {% for research in latest_research %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ research.title }}</h5>
+                    <p class="card-text">{{ research.abstract|truncatewords:30 }}</p>
+                    <p>Efficiency: {{ research.efficiency_percentage }}%</p>
+                    <a href="{% url 'research_detail' research.id %}" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock title %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Register</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="/register/">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="first_name" class="form-label">First Name *</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Last Name (Optional)</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username *</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password1" class="form-label">Password *</label>
+                            <input type="password" class="form-control" id="password1" name="password1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password2" class="form-label">Confirm Password *</label>
+                            <input type="password" class="form-control" id="password2" name="password2" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="country" class="form-label">Country *</label>
+                            <select class="form-control" id="country" name="country" required
+                                onchange="toggleOtherCountry()">
+                                <option value="">Select Country</option>
+                                <option value="USA">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Australia">Australia</option>
+                                <option value="India">India</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3" id="otherCountryDiv" style="display: none;">
+                            <label for="other_country" class="form-label">Specify Country *</label>
+                            <input type="text" class="form-control" id="other_country" name="other_country">
+                        </div>
+                        <div class="mb-3">
+                            <label for="academic_title" class="form-label">Academic Title *</label>
+                            <select class="form-control" id="academic_title" name="academic_title" required
+                                onchange="toggleOtherTitle()">
+                                <option value="">Select Academic Title</option>
+                                <option value="INT_PHD">Integrated PhD</option>
+                                <option value="PHD">PhD</option>
+                                <option value="POST_DOC">Post Doctoral</option>
+                                <option value="PROF">Professor</option>
+                                <option value="ASST_PROF">Assistant Professor</option>
+                                <option value="ASSOC_PROF">Associate Professor</option>
+                                <option value="RES_SCHOLAR">Research Scholar</option>
+                                <option value="SCIENTIST">Scientist</option>
+                                <option value="SR_SCIENTIST">Senior Scientist</option>
+                                <option value="PRINCIPAL">Principal Investigator</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3" id="otherTitleDiv" style="display: none;">
+                            <label for="other_academic_title" class="form-label">Specify Academic Title *</label>
+                            <input type="text" class="form-control" id="other_academic_title"
+                                name="other_academic_title">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Get OTP</button>
+                    </form>
+                    <p class="text-center mt-3">
+                        Already have an account? <a href="/login/">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function toggleOtherCountry() {
+        const countrySelect = document.getElementById('country');
+        const otherCountryDiv = document.getElementById('otherCountryDiv');
+        const otherCountryInput = document.getElementById('other_country');
+
+        if (countrySelect.value === 'other') {
+            otherCountryDiv.style.display = 'block';
+            otherCountryInput.required = true;
+        } else {
+            otherCountryDiv.style.display = 'none';
+            otherCountryInput.required = false;
+            otherCountryInput.value = '';
+        }
+    }
+    function toggleOtherTitle() {
+        const titleSelect = document.getElementById('academic_title');
+        const otherTitleDiv = document.getElementById('otherTitleDiv');
+        const otherTitleInput = document.getElementById('other_academic_title');
+
+        if (titleSelect.value === 'OTHER') {
+            otherTitleDiv.style.display = 'block';
+            otherTitleInput.required = true;
+        } else {
+            otherTitleDiv.style.display = 'none';
+            otherTitleInput.required = false;
+            otherTitleInput.value = '';
+        }
+    }
+</script>
+{% endblock body %}

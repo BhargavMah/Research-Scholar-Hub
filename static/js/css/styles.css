@@ -1,0 +1,10 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.navbar-nav .nav-link.active {
+    color: rgb(231, 21, 21) !important;
+    background-color: #ff6200 !important;
+    border-radius: 5px;
+}

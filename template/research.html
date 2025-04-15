@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Research List{% endblock title %}
+
+{% block body %}
+<div class="container">
+    <h2 class="mb-4">Research Papers</h2>
+    
+    <div class="mb-3">
+        <form method="GET" class="d-flex align-items-center">
+            <select name="sort" class="form-select me-2" style="width: auto;">
+                <option value="date">Sort by Date</option>
+                <option value="efficiency">Sort by Efficiency</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </form>
+    </div>
+
+    <div class="row">
+        {% for research in researches %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ research.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        By {{ research.researcher.user.username }} | 
+                        {{ research.publication_date|date:"F d, Y" }}
+                    </h6>
+                    <p class="card-text">{{ research.abstract|truncatewords:50 }}</p>
+                    <p><strong>Efficiency:</strong> {{ research.efficiency_percentage }}%</p>
+                    <p><strong>Category:</strong> {{ research.get_category_display }}</p>
+                    {% if research.research_paper %}
+                    <a href="{{ research.research_paper.url }}" class="btn btn-primary">
+                        Download Paper
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p>No research papers found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}
